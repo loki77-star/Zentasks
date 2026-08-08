@@ -1,7 +1,19 @@
 import axios from 'axios';
 
+const getBaseURL = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  if (typeof window !== 'undefined') {
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalhost) {
+      // Accessed from mobile/network - use the browser's hostname with backend port 3001
+      return `http://${window.location.hostname}:3001/api/backend`;
+    }
+  }
+  return 'http://localhost:3001/api/backend';
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/backend',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },
