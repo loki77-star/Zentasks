@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+:root {
+  /* Light theme (default) */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #3b82f6;
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #334155;
+  --accent-foreground: #f8fafc;
+  --border: #334155;
+  --input: #334155;
+  --ring: #3b82f6;
+}
+
+[data-theme="soft-blue"] {
+  /* Soft Blue theme */
+  --background: #f0f4f8;
+  --foreground: #102a43;
+  --card: #ffffff;
+  --card-foreground: #102a43;
+  --popover: #ffffff;
+  --popover-foreground: #102a43;
+  --primary: #486581;
+  --primary-foreground: #ffffff;
+  --secondary: #d9e2ec;
+  --secondary-foreground: #102a43;
+  --muted: #f0f4f8;
+  --muted-foreground: #627d98;
+  --accent: #d9e2ec;
+  --accent-foreground: #102a43;
+  --border: #bcccdc;
+  --input: #bcccdc;
+  --ring: #486581;
+}
+
+[data-theme="emerald"] {
+  /* Emerald theme */
+  --background: #f0fdf4;
+  --foreground: #064e3b;
+  --card: #ffffff;
+  --card-foreground: #064e3b;
+  --popover: #ffffff;
+  --popover-foreground: #064e3b;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #d1fae5;
+  --secondary-foreground: #064e3b;
+  --muted: #f0fdf4;
+  --muted-foreground: #047857;
+  --accent: #d1fae5;
+  --accent-foreground: #064e3b;
+  --border: #a7f3d0;
+  --input: #a7f3d0;
+  --ring: #10b981;
+}
+
+[data-theme="sunset"] {
+  /* Sunset theme */
+  --background: #fffaf0;
+  --foreground: #4a1d1d;
+  --card: #ffffff;
+  --card-foreground: #4a1d1d;
+  --popover: #ffffff;
+  --popover-foreground: #4a1d1d;
+  --primary: #dd6b20;
+  --primary-foreground: #ffffff;
+  --secondary: #feebc8;
+  --secondary-foreground: #4a1d1d;
+  --muted: #fffaf0;
+  --muted-foreground: #9c4221;
+  --accent: #feebc8;
+  --accent-foreground: #4a1d1d;
+  --border: #fbd38d;
+  --input: #fbd38d;
+  --ring: #dd6b20;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease forwards;
+}
