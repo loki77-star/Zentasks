@@ -13,7 +13,7 @@ async function bootstrap() {
   });
 
   // Set global route prefix
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api/backend');
 
   // Use global validation pipes for DTO validation
   app.useGlobalPipes(
@@ -25,6 +25,6 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log(`Application is running on: http://localhost:${port}/api`);
+  console.log(`Application is running on: http://localhost:${port}/api/backend`);
 }
 bootstrap();
