@@ -6,6 +6,7 @@ import { showToast } from '@/components/Toast';
 import api from '@/utils/api';
 import { Lock, User, Sparkles, ArrowRight, UserCheck } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AuthPage() {
   const router = useRouter();
@@ -17,7 +18,6 @@ export default function AuthPage() {
   const [guestLoading, setGuestLoading] = useState(false);
 
   useEffect(() => {
-    // If user is already logged in, redirect to dashboard
     const token = localStorage.getItem('token');
     if (token) {
       router.push('/dashboard');
@@ -34,14 +34,12 @@ export default function AuthPage() {
     setLoading(true);
     try {
       if (isLogin) {
-        // Login flow
         const res = await api.post('/auth/login', { username, password });
         localStorage.setItem('token', res.data.accessToken);
         localStorage.setItem('user', JSON.stringify(res.data.user));
         showToast(`Welcome back, ${res.data.user.username}!`, 'success');
         router.push('/dashboard');
       } else {
-        // Register flow
         await api.post('/auth/register', { username, password });
         showToast('Registration successful! Please log in.', 'success');
         setIsLogin(true);
@@ -71,9 +69,18 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-background transition-colors duration-300">
+    <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-background transition-colors duration-500 overflow-hidden relative">
+      {/* Background Decorative Blobs */}
+      <div className="absolute top-10 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Top Header & Theme Selector */}
-      <div className="absolute top-4 right-4 flex items-center gap-2">
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute top-4 right-4 flex items-center gap-2 z-10"
+      >
         <label className="text-xs font-semibold text-muted-foreground mr-1">Theme:</label>
         <select
           value={theme}
@@ -86,46 +93,63 @@ export default function AuthPage() {
           <option value="emerald">Emerald</option>
           <option value="sunset">Sunset</option>
         </select>
-      </div>
+      </motion.div>
 
       {/* Main Auth Card Container */}
-      <div className="w-full max-w-md bg-card text-card-foreground rounded-2xl shadow-xl border border-border overflow-hidden transition-all duration-300 transform hover:scale-[1.01]">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="w-full max-w-md bg-card text-card-foreground rounded-2xl shadow-2xl border border-border overflow-hidden relative z-10"
+      >
         
         {/* Banner area */}
-        <div className="bg-gradient-to-r from-primary to-blue-600 p-8 text-white text-center relative">
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-[1px] pointer-events-none" />
+        <div className="bg-gradient-to-r from-primary to-blue-600 p-8 text-white text-center relative overflow-hidden">
+          <motion.div 
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+            className="absolute -top-16 -right-16 w-44 h-44 bg-white/5 rounded-full blur-xl pointer-events-none" 
+          />
           <div className="relative z-10 flex flex-col items-center gap-2">
-            <div className="p-3 bg-white/10 rounded-xl mb-1">
+            <motion.div 
+              whileHover={{ scale: 1.1, rotate: 10 }}
+              className="p-3 bg-white/10 rounded-xl mb-1 cursor-pointer"
+            >
               <Sparkles className="w-8 h-8 text-white animate-pulse" />
-            </div>
+            </motion.div>
             <h1 className="text-3xl font-extrabold tracking-tight">ZenTask</h1>
             <p className="text-sm text-white/80">Organize and execute with clarity</p>
           </div>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex border-b border-border bg-muted/30">
+        <div className="flex border-b border-border bg-muted/30 relative">
           <button
             type="button"
             onClick={() => setIsLogin(true)}
-            className={`flex-1 py-3.5 text-center text-sm font-semibold border-b-2 transition-all duration-300 cursor-pointer ${
-              isLogin
-                ? 'border-primary text-primary bg-card'
-                : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/10'
-            }`}
+            className="flex-1 py-3.5 text-center text-sm font-semibold transition-all duration-300 cursor-pointer relative z-10 text-foreground"
           >
             Sign In
+            {isLogin && (
+              <motion.div 
+                layoutId="activeTabBorder"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+              />
+            )}
           </button>
           <button
             type="button"
             onClick={() => setIsLogin(false)}
-            className={`flex-1 py-3.5 text-center text-sm font-semibold border-b-2 transition-all duration-300 cursor-pointer ${
-              !isLogin
-                ? 'border-primary text-primary bg-card'
-                : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/10'
-            }`}
+            className="flex-1 py-3.5 text-center text-sm font-semibold transition-all duration-300 cursor-pointer relative z-10 text-foreground"
           >
             Create Account
+            {!isLogin && (
+              <motion.div 
+                layoutId="activeTabBorder"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+              />
+            )}
           </button>
         </div>
 
@@ -175,7 +199,9 @@ export default function AuthPage() {
           </div>
 
           {/* Submit Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
             type="submit"
             disabled={loading}
             className="w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-50 text-sm"
@@ -188,7 +214,7 @@ export default function AuthPage() {
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
-          </button>
+          </motion.button>
 
           {/* Divider */}
           <div className="relative flex py-2 items-center">
@@ -200,7 +226,9 @@ export default function AuthPage() {
           </div>
 
           {/* Guest Login Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
             type="button"
             onClick={handleGuestLogin}
             disabled={guestLoading}
@@ -214,9 +242,9 @@ export default function AuthPage() {
                 Guest Login
               </>
             )}
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }
