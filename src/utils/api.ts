@@ -1,7 +1,14 @@
 import axios from 'axios';
 
 const getBaseURL = () => {
-  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  let url = process.env.NEXT_PUBLIC_API_URL;
+  if (url) {
+    // If the configured URL is missing the global prefix, append it automatically
+    if (!url.includes('/api/backend')) {
+      url = url.replace(/\/$/, '') + '/api/backend';
+    }
+    return url;
+  }
   if (typeof window !== 'undefined') {
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (!isLocalhost) {
