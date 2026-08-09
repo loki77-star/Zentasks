@@ -1,6 +1,12 @@
 # ZenTask - Task Management System Walkthrough
 
 ZenTask is a high-fidelity, full-stack Task Management System featuring a Kanban board layout, JWT authentication, instant guest access, multiple persistent themes, subtask checklists, and responsive motion animations.
+---
+
+## 🌐 Live Deployment URLs
+
+* **Frontend (Vercel)**: [https://zentasks-rm3k.vercel.app/](https://zentasks-rm3k.vercel.app/)
+* **Backend API (Render)**: [https://zentasks-6ycz.onrender.com/api/backend](https://zentasks-6ycz.onrender.com/api/backend)
 
 ---
 
