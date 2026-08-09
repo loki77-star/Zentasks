@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { showToast } from '@/components/Toast';
 import api from '@/utils/api';
-import { Lock, User, Sparkles, ArrowRight, UserCheck } from 'lucide-react';
+import { Lock, User, Sparkles, ArrowRight, UserCheck, Eye, EyeOff } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { motion } from 'framer-motion';
 
@@ -14,6 +14,7 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [guestLoading, setGuestLoading] = useState(false);
 
@@ -182,13 +183,24 @@ export default function AuthPage() {
                   <Lock className="w-4 h-4" />
                 </span>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-foreground placeholder-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-xs font-semibold"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-border bg-background text-foreground placeholder-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-xs font-semibold"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-muted-foreground hover:text-foreground cursor-pointer"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
             </div>
           </div>

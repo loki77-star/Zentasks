@@ -40,6 +40,7 @@ Responsive column layouts with real-time searches, priorities, subtask checklist
 ### 3. Secure Authentication & Guest Login
 * **JWT Auth**: User registration and login endpoints with password hashing and JWT token issuance.
 * **One-Click Guest Login**: Instant access to the dashboard using a generated dummy guest profile so evaluators can test the app without signing up.
+* **Show/Hide Password Toggle**: An interactive visibility icon next to the password input field allows users to verify their input before submitting.
 
 ### 4. Custom Theme Engine
 * Implemented five themes: **Light**, **Dark**, **Soft Blue**, **Emerald**, and **Sunset**.
