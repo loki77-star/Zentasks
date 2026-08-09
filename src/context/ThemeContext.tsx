@@ -13,7 +13,6 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setThemeState] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // Read from localStorage on mount
@@ -24,7 +23,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
     }
-    setMounted(true);
   }, []);
 
   const setTheme = (newTheme: Theme) => {
@@ -32,15 +30,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
-
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: 'light', setTheme: () => {} }}>
-        <div style={{ visibility: 'hidden' }}>{children}</div>
-      </ThemeContext.Provider>
-    );
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
