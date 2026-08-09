@@ -4,6 +4,18 @@ ZenTask is a high-fidelity, full-stack Task Management System featuring a Kanban
 
 ---
 
+## 📸 Project Screenshots
+
+### 1. Authentication Page
+Clean sign-in interface with staggered input fields, theme toggles, and instant Guest Access.
+![ZenTask Sign In](/public/screenshot_login.jpg)
+
+### 2. Kanban Board Dashboard
+Responsive column layouts with real-time searches, priorities, subtask checklist counts, and theme changes.
+![ZenTask Dashboard](/public/screenshot_dashboard.jpg)
+
+---
+
 ## 🛠️ Technology Stack
 
 - **Frontend**: Next.js 16 (App Router), Tailwind CSS, Framer Motion (for premium UI/UX transitions), Axios.
@@ -62,7 +74,7 @@ task-management-system/
 
 ---
 
-## ⚙️ Local Installation & Running
+## ⚙️ Local Setup & Running
 
 ### 1. Clone the repository and install dependencies:
 ```bash
