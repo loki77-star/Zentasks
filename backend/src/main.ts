@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // Enable CORS for frontend requests
   app.enableCors({
-    origin: '*', // In production, replace with specific domain (e.g. Next.js Vercel url)
+    origin: true, // Dynamically mirror the requesting origin to allow credentials
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
